@@ -3,8 +3,8 @@ import Question from "./Question"
 
 export default function Quiz(){
     const [allQuestions, setAllQuestions] = React.useState([])
-
-    let questionElements
+    const [gameOver, setGameOver] = React.useState(false)
+    const [gameStatus, setGameStatus] = React.useState("playing")
 
     React.useEffect(() => {
         fetch('https://opentdb.com/api.php?amount=5&type=multiple')
@@ -18,9 +18,9 @@ export default function Quiz(){
                 )))
             })
             .catch(err => console.error(err))
-    }, [])
+    }, [gameStatus])
 
-    questionElements = allQuestions.map((question, index) => {
+    const questionElements = allQuestions.map((question, index) => {
         return <Question 
             key={index}
             question={question.question}
@@ -29,9 +29,41 @@ export default function Quiz(){
         />
     })
 
+    function checkAnswers(event){
+        event.preventDefault()
+        setGameOver(true)
+        const optionElements = document.getElementsByName("option")
+            for( const eachOption of optionElements ) {  
+                    (eachOption.value == "correct" && eachOption.className == "selected") ? 
+                        eachOption.className = "correct" :  
+                          (eachOption.className == "selected") ? 
+                            eachOption.className = "incorrect" : 
+                                eachOption.className = "disabled" 
+                }                 
+    }
+
+    function restartGame(){
+        setGameOver(false)
+        setGameStatus("scoring")
+        for ( const eachAnswer of document.getElementsByName("option")){
+            eachAnswer.className = "unselected"
+        }
+    }
+
     return(
         <div className="quiz">
-            {questionElements}
+            <form>
+                {questionElements}
+                {!gameOver &&
+                    <button className="btn submitBtn" onClick={(event) => checkAnswers(event)} type="submit">Check answers</button>
+                }
+            </form>
+            {gameOver && 
+                <div className="score-container">
+                    <h2>You scored {document.getElementsByClassName("correct").length}/5!</h2>
+                    <button className="btn restartBtn" onClick={restartGame}>Play again</button>
+                </div>
+            }
         </div>
     )
 }
