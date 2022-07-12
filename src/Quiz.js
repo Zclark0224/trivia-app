@@ -32,6 +32,7 @@ export default function Quiz(){
     function checkAnswers(event){
         event.preventDefault()
         setGameOver(true)
+        setGameStatus("playing")
         const optionElements = document.getElementsByName("option")
             for( const eachOption of optionElements ) {  
                     (eachOption.value == "correct" && eachOption.className == "selected") ? 
@@ -44,7 +45,7 @@ export default function Quiz(){
 
     function restartGame(){
         setGameOver(false)
-        setGameStatus("scoring")
+        setGameStatus("score")
         for ( const eachAnswer of document.getElementsByName("option")){
             eachAnswer.className = "unselected"
         }

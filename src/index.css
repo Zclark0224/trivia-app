@@ -8,10 +8,14 @@ body {
   background: #F5F7FB;
   box-sizing: border-box;
 }
+.app {
+  position: relative;
+}
 
 .intro {
   position: relative;
   width: 100%;
+  z-index: 3;
 }
 
 .intro--container {
@@ -52,24 +56,53 @@ body {
 }
 
 .intro--startBtn:hover,
-.intro--startBtn:focus {
+.intro--startBtn:focus,
+.submitBtn:hover,
+.submitBtn:focus,
+.restartBtn:hover,
+.restartBtn:focus {
   background-color: #494f6e;
 }
 
-/* .intro--blob-1 {
-  position: absolute;
-  left: -30%;
-  right: 0%;
-  top: -30%;
-  bottom: 0%;
+.intro--blob-1 {
+  position: fixed;
+  left: -10%;
+  bottom: -30%;
   width: 30rem;
+  z-index: -5;
+}
+
+.intro--blob-2 {
+  position: fixed;
+  right: -40%;
+  top: -25%;
+  width: 100%;
   opacity: 0.6;
-} */
+  z-index: -5;
+}
+
+.intro--blob-3 {
+  position: fixed;
+  right: -40%;
+  bottom: -25%;
+  width: 100%;
+  opacity: 0.4;
+  z-index: -5;
+}
+
+.intro--blob-4 {
+  position: fixed;
+  top: -15%;
+  left: -35%;
+  width: 100%;
+  z-index: -5;
+}
 
 .quiz {
   max-width: 600px;
   padding: 2em;
   margin: 0 auto;
+  z-index: 5;
 }
 
 form {
