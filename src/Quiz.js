@@ -10,6 +10,7 @@ export default function Quiz(){
         fetch('https://opentdb.com/api.php?amount=5&type=multiple')
             .then(res => res.json())
             .then(data => {
+                setGameStatus('playing')
                 setAllQuestions(data.results.map(item => (
                     {question: item.question,
                     options: [...item.incorrect_answers, item.correct_answer].sort(() => Math.random() - 0.5),
@@ -32,7 +33,6 @@ export default function Quiz(){
     function checkAnswers(event){
         event.preventDefault()
         setGameOver(true)
-        setGameStatus("playing")
         const optionElements = document.getElementsByName("option")
             for( const eachOption of optionElements ) {  
                     (eachOption.value === "correct" && eachOption.className === "selected") ? 
