@@ -35,9 +35,9 @@ export default function Quiz(){
         setGameStatus("playing")
         const optionElements = document.getElementsByName("option")
             for( const eachOption of optionElements ) {  
-                    (eachOption.value == "correct" && eachOption.className == "selected") ? 
+                    (eachOption.value === "correct" && eachOption.className === "selected") ? 
                         eachOption.className = "correct" :  
-                          (eachOption.className == "selected") ? 
+                          (eachOption.className === "selected") ? 
                             eachOption.className = "incorrect" : 
                                 eachOption.className = "disabled" 
                 }                 
